@@ -1,0 +1,2 @@
+correo: ejemplo@correo.com
+contraseña: clave123

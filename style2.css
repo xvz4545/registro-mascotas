@@ -1,0 +1,156 @@
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #dadfe7, #d4dae4);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  color: #f0f4f8;
+}
+
+.container {
+  background-color: #223354;
+  padding: 30px 40px;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+  width: 100%;
+  max-width: 480px;
+  border: 2px solid #4a90e2;
+  transition: border-color 0.3s ease;
+}
+
+.container:hover {
+  border-color: #82c7ff;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 24px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  color: #82c7ff;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+label {
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #cbd6f7;
+}
+
+input[type="text"],
+input[type="date"],
+select {
+  padding: 10px 14px;
+  border-radius: 6px;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  background-color: #2f466a;
+  color: #e1e9ff;
+}
+
+input[type="text"]:focus,
+input[type="date"]:focus,
+select:focus {
+  background-color: #3d5ea8;
+  box-shadow: 0 0 8px #82c7ff;
+}
+
+input[readonly] {
+  background-color: #1a2a4a;
+  color: #aab8ff;
+  cursor: default;
+}
+
+button {
+  background-color: #4a90e2;
+  color: #f0f4f8;
+  font-weight: 700;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+button:hover {
+  background-color: #82c7ff;
+  box-shadow: 0 0 10px #82c7ff;
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 30px;
+  background-color: #2f466a;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+}
+
+th, td {
+  padding: 12px 15px;
+  text-align: left;
+  color: #e1e9ff;
+}
+
+th {
+  background-color: #1a2a4a;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+tr:nth-child(even) {
+  background-color: #364e8a;
+}
+
+tr:hover {
+  background-color: #4a73c4;
+  cursor: default;
+}
+
+.btn-danger {
+  background-color: #e25c5c;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.btn-danger:hover {
+  background-color: #ff6e6e;
+  box-shadow: 0 0 8px #ff6e6e;
+}
+
+
+@media (max-width: 520px) {
+  .container {
+    padding: 20px;
+    width: 100%;
+  }
+
+  table, th, td {
+    font-size: 0.9rem;
+  }
+}

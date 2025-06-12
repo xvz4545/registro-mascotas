@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Preguntas Frecuentes</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 40px 20px;
+      min-height: 100vh;
+      background-image: url('https://static.wixstatic.com/media/00ed0e_0c0a03a04be84c8ca0b41c7d6ce3dcaa~mv2.gif');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      z-index: 0;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background-color: rgba(0,0,0,0.5);
+      z-index: -1;
+    }
+
+    h1 {
+      color: #fff;
+      margin-bottom: 40px;
+      font-weight: 600;
+      text-shadow: 0 3px 8px rgba(0,0,0,0.7);
+      z-index: 1;
+    }
+
+    .faq-container {
+      max-width: 700px;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 12px;
+      padding: 30px 25px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+      z-index: 1;
+      backdrop-filter: blur(8px);
+    }
+
+    .faq-item {
+      background: #fff;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      padding: 20px 25px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+      cursor: pointer;
+      position: relative;
+      transition: transform 0.2s ease, box-shadow 0.3s ease;
+    }
+    .faq-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+    }
+
+    .question {
+      font-weight: 600;
+      font-size: 1.15rem;
+      color: #333;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: none;
+    }
+
+    .question::after {
+      content: '+';
+      font-weight: 900;
+      font-size: 1.5rem;
+      color: #007bff;
+      transition: transform 0.3s ease;
+    }
+
+    .faq-item.active .question::after {
+      content: '-';
+      transform: rotate(180deg);
+    }
+
+    .answer {
+      margin-top: 15px;
+      font-size: 1rem;
+      line-height: 1.5;
+      color: #444;
+      display: none;
+    }
+
+    .faq-item.active .answer {
+      display: block;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 1.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Preguntas Frecuentes</h1>
+
+  <div class="faq-container">
+    <div class="faq-item">
+      <div class="question">¿Cómo registro a mi mascota?</div>
+      <div class="answer">Para registrar a tu mascota, completa el formulario con sus datos básicos como nombre, especie, raza, edad y datos de contacto del dueño.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="question">¿Puedo registrar más de una mascota?</div>
+      <div class="answer">Sí, puedes registrar tantas mascotas como desees, solo debes llenar el formulario por cada una.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="question">¿Qué pasa con la información que registro?</div>
+      <div class="answer">La información registrada se utiliza exclusivamente para gestionar y proteger a las mascotas. No se comparte con terceros sin consentimiento.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="question">¿Cómo puedo obtener ayuda adicional?</div>
+      <div class="answer">Si tienes dudas específicas, puedes contactarnos en la sección Contacto de nuestra página.</div>
+    </div>
+  </div>
+
+  <script>
+    const faqItems = document.querySelectorAll('.faq-item');
+
+    faqItems.forEach(item => {
+      const question = item.querySelector('.question');
+      question.addEventListener('click', () => {
+        item.classList.toggle('active');
+      });
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Listado de Mascotas</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    body {
+      background-color: #f4f6f9;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin-top: 50px;
+    }
+
+    h1 {
+      color: #0d6efd;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .table-container {
+      background-color: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.08);
+      padding: 20px;
+    }
+
+    thead {
+      background-color: #0d6efd;
+      color: white;
+      cursor: pointer;
+    }
+
+    tbody tr:hover {
+      background-color: #f1f3f5;
+    }
+
+    .btn-logout {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+    }
+
+    .btn-sm {
+      margin-right: 5px;
+    }
+
+    .search-box {
+      margin-bottom: 15px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <button class="btn btn-outline-danger btn-sm btn-logout" onclick="cerrarSesion()">Cerrar sesión</button>
+    <h1>Listado de Mascotas Registradas</h1>
+
+    <div class="table-container">
+      <input type="text" class="form-control search-box" id="buscador" placeholder="Buscar mascota o dueño..." onkeyup="filtrarTabla()" />
+
+      <div class="table-responsive">
+        <table class="table table-bordered table-hover align-middle" id="tabla">
+          <thead>
+            <tr>
+              <th onclick="ordenarTabla(0)">Nombre Dueño ⬍</th>
+              <th onclick="ordenarTabla(1)">RUT ⬍</th>
+              <th onclick="ordenarTabla(2)">Nombre Mascota ⬍</th>
+              <th onclick="ordenarTabla(3)">Fecha Nacimiento ⬍</th>
+              <th onclick="ordenarTabla(4)">Edad ⬍</th>
+              <th onclick="ordenarTabla(5)">Tipo ⬍</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="tablaMascotas"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function cerrarSesion() {
+      if (confirm("¿Estás seguro que deseas cerrar sesión?")) {
+        window.location.href = "index.html";
+      }
+    }
+
+    function mostrarMascotas() {
+      const mascotas = JSON.parse(localStorage.getItem("mascotas")) || [];
+      const tabla = document.getElementById("tablaMascotas");
+      tabla.innerHTML = "";
+
+      mascotas.forEach((m, index) => {
+        const fila = document.createElement("tr");
+        fila.innerHTML = `
+          <td><span>${m.nombreDueno}</span><input class="form-control d-none" type="text" value="${m.nombreDueno}"></td>
+          <td><span>${m.rutDueno}</span><input class="form-control d-none" type="text" value="${m.rutDueno}"></td>
+          <td><span>${m.nombreMascota}</span><input class="form-control d-none" type="text" value="${m.nombreMascota}"></td>
+          <td><span>${m.fechaNacimiento}</span><input class="form-control d-none" type="date" value="${m.fechaNacimiento}"></td>
+          <td><span>${m.edad}</span><input class="form-control d-none" type="number" value="${m.edad}" min="0"></td>
+          <td>
+            <span>${m.tipoMascota}</span>
+            <select class="form-select d-none">
+              <option value="Perro" ${m.tipoMascota === "Perro" ? "selected" : ""}>Perro</option>
+              <option value="Gato" ${m.tipoMascota === "Gato" ? "selected" : ""}>Gato</option>
+              <option value="Otro" ${m.tipoMascota === "Otro" ? "selected" : ""}>Otro</option>
+            </select>
+          </td>
+          <td>
+            <button class="btn btn-warning btn-sm" onclick="editarMascota(this, ${index})">Editar</button>
+            <button class="btn btn-success btn-sm d-none" onclick="guardarEdicion(this, ${index})">Aceptar</button>
+            <button class="btn btn-danger btn-sm" onclick="eliminarMascota(${index})">Eliminar</button>
+          </td>
+        `;
+        tabla.appendChild(fila);
+      });
+    }
+
+    function editarMascota(btn, index) {
+      const fila = btn.closest("tr");
+      const spans = fila.querySelectorAll("span");
+      const inputs = fila.querySelectorAll("input, select");
+
+      spans.forEach(span => span.classList.add("d-none"));
+      inputs.forEach(input => input.classList.remove("d-none"));
+
+      fila.querySelector(".btn-warning").classList.add("d-none");
+      fila.querySelector(".btn-success").classList.remove("d-none");
+    }
+
+    function guardarEdicion(btn, index) {
+      const fila = btn.closest("tr");
+      const inputs = fila.querySelectorAll("input, select");
+
+      const nuevaMascota = {
+        nombreDueno: inputs[0].value.trim(),
+        rutDueno: inputs[1].value.trim(),
+        nombreMascota: inputs[2].value.trim(),
+        fechaNacimiento: inputs[3].value,
+        edad: inputs[4].value,
+        tipoMascota: inputs[5].value
+      };
+
+      const mascotas = JSON.parse(localStorage.getItem("mascotas")) || [];
+      mascotas[index] = nuevaMascota;
+      localStorage.setItem("mascotas", JSON.stringify(mascotas));
+      mostrarMascotas();
+    }
+
+    function eliminarMascota(index) {
+      if (confirm("¿Seguro que deseas eliminar esta mascota?")) {
+        const mascotas = JSON.parse(localStorage.getItem("mascotas")) || [];
+        mascotas.splice(index, 1);
+        localStorage.setItem("mascotas", JSON.stringify(mascotas));
+        mostrarMascotas();
+      }
+    }
+
+    function filtrarTabla() {
+      const input = document.getElementById("buscador").value.toLowerCase();
+      const filas = document.querySelectorAll("#tablaMascotas tr");
+
+      filas.forEach(fila => {
+        const texto = fila.textContent.toLowerCase();
+        fila.style.display = texto.includes(input) ? "" : "none";
+      });
+    }
+
+    function ordenarTabla(columna) {
+      const tabla = document.getElementById("tabla");
+      const tbody = tabla.tBodies[0];
+      const filas = Array.from(tbody.rows);
+
+      const asc = !tabla.dataset.ordenAsc || tabla.dataset.ordenCol != columna;
+      filas.sort((a, b) => {
+        const valA = a.cells[columna].innerText.toLowerCase();
+        const valB = b.cells[columna].innerText.toLowerCase();
+        return asc ? valA.localeCompare(valB) : valB.localeCompare(valA);
+      });
+
+      filas.forEach(f => tbody.appendChild(f));
+
+      tabla.dataset.ordenAsc = asc;
+      tabla.dataset.ordenCol = columna;
+    }
+
+    window.onload = mostrarMascotas;
+  </script>
+</body>
+</html>

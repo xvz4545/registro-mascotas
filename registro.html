@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Registro de Mascotas</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <style>
+    body {
+      background-color: #f2f2f2;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    h1 {
+      color: #007bff;
+      font-weight: bold;
+      margin-bottom: 30px;
+    }
+
+    .container {
+      max-width: 700px;
+    }
+
+    form.card {
+      border-radius: 1rem;
+      border: 1px solid #dee2e6;
+      background-color: #fff;
+    }
+
+    .form-label {
+      font-weight: 600;
+      color: #343a40;
+    }
+
+    .form-control:focus,
+    .form-select:focus {
+      border-color: #007bff;
+      box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25);
+    }
+
+    .btn-primary {
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      background-color: #0056b3;
+      transform: scale(1.02);
+    }
+
+    .readonly-input {
+      background-color: #e9ecef;
+      color: #6c757d;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body class="bg-light">
+
+  <div class="container my-5">
+    <h1 class="text-center">Registro de Mascotas</h1>
+    
+    <form id="formularioMascota" class="card p-4 shadow" novalidate>
+      <div class="mb-3">
+        <label for="nombreDueno" class="form-label">Nombre del Dueño:</label>
+        <input type="text" id="nombreDueno" class="form-control" required />
+      </div>
+
+      <div class="mb-3">
+        <label for="rutDueno" class="form-label">RUT del Dueño:</label>
+        <input type="text" id="rutDueno" class="form-control" placeholder="Ej: 12.345.678-9" required />
+      </div>
+
+      <div class="mb-3">
+        <label for="nombreMascota" class="form-label">Nombre de la Mascota:</label>
+        <input type="text" id="nombreMascota" class="form-control" required />
+      </div>
+
+      <div class="mb-3">
+        <label for="fechaNacimiento" class="form-label">Fecha de Nacimiento:</label>
+        <input type="date" id="fechaNacimiento" class="form-control" max="" required />
+      </div>
+
+      <div class="mb-3">
+        <label for="edadMascota" class="form-label">Edad Estimada (años):</label>
+        <input type="text" id="edadMascota" class="form-control readonly-input" readonly placeholder="Se calculará automáticamente" />
+      </div>
+
+      <div class="mb-3">
+        <label for="tipoMascota" class="form-label">Tipo de Mascota:</label>
+        <select id="tipoMascota" class="form-select" required>
+          <option value="" disabled selected>Selecciona una opción</option>
+          <option value="Perro">Perro</option>
+          <option value="Gato">Gato</option>
+          <option value="Otro">Otro</option>
+        </select>
+      </div>
+
+      <div class="d-grid">
+        <button type="submit" class="btn btn-primary">Registrar Mascota</button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    // Establecer fecha máxima
+    document.getElementById("fechaNacimiento").max = new Date().toISOString().split("T")[0];
+
+    // Calcular edad al cambiar la fecha
+    document.getElementById("fechaNacimiento").addEventListener("change", function () {
+      const edad = calcularEdad(this.value);
+      document.getElementById("edadMascota").value = edad;
+    });
+
+    function calcularEdad(fechaNacimiento) {
+      if (!fechaNacimiento) return "";
+      const hoy = new Date();
+      const nacimiento = new Date(fechaNacimiento);
+      let edad = hoy.getFullYear() - nacimiento.getFullYear();
+      const mes = hoy.getMonth() - nacimiento.getMonth();
+      if (mes < 0 || (mes === 0 && hoy.getDate() < nacimiento.getDate())) {
+        edad--;
+      }
+      return edad >= 0 ? edad : "";
+    }
+
+    function encriptar(texto) {
+      return btoa(texto.trim());
+    }
+
+    document.getElementById("formularioMascota").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const nombreDueno = document.getElementById("nombreDueno").value.trim();
+      const rutDueno = document.getElementById("rutDueno").value.trim();
+      const nombreMascota = document.getElementById("nombreMascota").value.trim();
+      const fechaNacimiento = document.getElementById("fechaNacimiento").value;
+      const edad = document.getElementById("edadMascota").value;
+      const tipoMascota = document.getElementById("tipoMascota").value;
+
+      if (!nombreDueno || !rutDueno || !nombreMascota || !fechaNacimiento || !tipoMascota) {
+        alert("Por favor, completa todos los campos requeridos.");
+        return;
+      }
+
+      const nuevaMascota = {
+        nombreDueno,
+        rutDueno,
+        nombreMascota,
+        fechaNacimiento,
+        edad,
+        tipoMascota
+      };
+
+      let mascotas = JSON.parse(localStorage.getItem("mascotas")) || [];
+      mascotas.push(nuevaMascota);
+      localStorage.setItem("mascotas", JSON.stringify(mascotas));
+
+      alert("Mascota registrada con éxito.");
+      document.getElementById("formularioMascota").reset();
+      document.getElementById("edadMascota").value = "";    
+    });
+  </script>
+
+</body>
+</html>

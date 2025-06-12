@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Registro de Mascotas</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body id="pagina-index">
+
+<header class="bg-light py-3 mb-4">
+  <div class="container d-flex justify-content-between align-items-center">
+    <h1 class="h3">Registro y Control de Mascotas</h1>
+    <nav>
+      <a href="index.html" class="me-4 text-decoration-none text-dark">Inicio</a>
+      <a href="preguntas-frecuentes.html" class="me-4 text-decoration-none text-dark">Preguntas Frecuentes</a>
+      <a href="acerca-de.html" class="me-4 text-decoration-none text-dark">Acerca de</a>
+      <a href="contacto.html" class="me-4 text-decoration-none text-dark">Contacto</a>
+      <a href="datos-legales.html" class="me-5 text-decoration-none text-dark">Información Legal</a>
+      <button id="loginBtn" class="btn btn-outline-primary">Iniciar Sesión</button>
+    </nav>
+  </div>
+</header>
+
+<!-- Modal Login -->
+<div id="loginModal" class="modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.5); z-index:1000;">
+  <div class="modal-content" style="background:white; margin:10% auto; padding:20px; width:90%; max-width:400px; position:relative; border-radius:8px; box-shadow:0 0 15px rgba(0,0,0,0.3);">
+    <span class="close" style="position:absolute; top:10px; right:15px; font-size:28px; cursor:pointer;">&times;</span>
+    <h2 class="text-center mb-4">Iniciar Sesión</h2>
+    <form id="loginForm">
+      <div class="mb-3">
+        <label for="email" class="form-label">Correo Electrónico</label>
+        <input type="email" class="form-control" id="email" placeholder="nombre@ejemplo.com" required />
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Contraseña</label>
+        <input type="password" class="form-control" id="password" placeholder="Contraseña" required />
+      </div>
+      <button type="submit" class="btn btn-primary w-100">Entrar</button>
+    </form>
+  </div>
+</div>
+
+<!-- Carousel -->
+<div id="carouselMascotas" class="carousel slide mb-5" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="https://media-front.elmostrador.cl/2018/06/mascotas7-1068x598-1-700x392.jpg" class="d-block w-100" alt="Mascotas felices" />
+      <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-3">
+        <h2>Bienvenido al Sistema de Registro de Mascotas</h2>
+        <p>Registra y controla la tenencia responsable de mascotas en tu comunidad.</p>
+        <a href="#seccion-beneficios" class="btn btn-primary">Comenzar ahora</a>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="https://images.unsplash.com/photo-1518717758536-85ae29035b6d?auto=format&fit=crop&w=1067&q=80" class="d-block w-100" alt="Perro jugando" />
+      <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-3">
+        <h2>Cuidado y Bienestar para tu Mascota</h2>
+        <p>Mantén toda la información al día y garantiza su salud.</p>
+        <a href="#seccion-beneficios" class="btn btn-success">Comenzar ahora</a>
+      </div>
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselMascotas" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Anterior</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselMascotas" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Siguiente</span>
+  </button>
+</div>
+
+<section id="seccion-beneficios" class="container my-5">
+  <h2 class="mb-4 text-center">¿Por qué es importante registrar a tu mascota?</h2>
+  <div class="row text-center">
+    <div class="col-md-6 col-lg-3 mb-4">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <div class="display-4 mb-3">🐾</div>
+          <h5 class="card-title">Recuperación</h5>
+          <p class="card-text">Facilita la recuperación en caso de pérdida.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-3 mb-4">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <div class="display-4 mb-3">🏥</div>
+          <h5 class="card-title">Salud</h5>
+          <p class="card-text">Mantiene el historial veterinario actualizado.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-3 mb-4">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <div class="display-4 mb-3">📋</div>
+          <h5 class="card-title">Regulación</h5>
+          <p class="card-text">Cumple con regulaciones y vacunaciones locales.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-3 mb-4">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <div class="display-4 mb-3">🌍</div>
+          <h5 class="card-title">Responsabilidad</h5>
+          <p class="card-text">Promueve la tenencia responsable en la comunidad.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="text-center mt-4">
+    <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="huella" width="60" class="mb-3" />
+    <p class="fs-5 fw-semibold">
+      ¿Aún no has registrado a tu mascota?<br />
+      ¡Hazlo ahora y ayúdanos a protegerla mejor!
+    </p>
+    <a href="registro.html" class="btn btn-primary">Registrar mi mascota</a>
+  </div>
+</section>
+
+<section id="seccion-requisitos" class="container my-5">
+  <h2 class="mb-4 text-center">Requisitos para el Registro</h2>
+  <p class="text-center">Revisa aquí los requisitos para solicitar el registro de tu mascota y descarga los documentos necesarios.</p>
+  <div class="text-center mt-4">
+    <a href="requisitos.html" class="btn btn-info">Ver los requisitos aquí</a>
+  </div>
+</section>
+
+<footer class="bg-light py-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <h5>Mapa del Sitio</h5>
+        <ul class="list-unstyled">
+          <li><a href="index.html" class="text-decoration-none text-dark">Inicio</a></li>
+          <li><a href="preguntas-frecuentes.html" class="text-decoration-none text-dark">Preguntas Frecuentes</a></li>
+          <li><a href="acerca-de.html" class="text-decoration-none text-dark">Acerca de</a></li>
+          <li><a href="contacto.html" class="text-decoration-none text-dark">Contacto</a></li>
+          <li><a href="datos-legales.html" class="text-decoration-none text-dark">Información Legal</a></li>
+          <li><a href="registro.html" class="text-decoration-none text-dark">Registro</a></li>
+          <li><a href="requisitos.html" class="text-decoration-none text-dark">Requisitos</a></li>
+        </ul>
+      </div>
+      <div class="col-md-4">
+        <h5>Contacto</h5>
+        <p>Dirección: Calle Los Aromos 1234, Santiago, Chile</p>
+        <p>Email: contacto@registro-mascotas.cl</p>
+        <p>Teléfono: +56 9 1234 5678</p>
+      </div>
+      <div class="col-md-4">
+        <h5>Suscríbete a nuestro boletín</h5>
+        <p>Recibe las últimas noticias y actualizaciones.</p>
+        <form>
+          <div class="input-group mb-3">
+            <input type="email" class="form-control" placeholder="Tu email" aria-label="Tu email" />
+            <button class="btn btn-outline-secondary" type="button">Suscribirse</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="text-center mt-3">
+      <p>© 2025 Sistema de Gestión de Mascotas</p>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="scriptLogin.js"></script>
+<script src="scriptIndex.js"></script>
+
+</body>
+</html> 
